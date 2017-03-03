@@ -1,0 +1,934 @@
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 24
+            [tpMultiplier] => 4
+            [slMultiplier] => 1
+            [windowRatioThresholdBuyMin] => 0.1
+            [windowRatioThresholdBuyMax] => 0.25
+            [windowRatioThresholdSellMin] => 0.75
+            [windowRatioThresholdSellMax] => 0.9
+        )
+
+)
+
+
+START TIME: 1167631200	Mon, 01 Jan 2007 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Mon] => 31.02384833601
+    [Thu] => -6.3944421600293
+    [Fri] => 12.644248378752
+    [Wed] => -11.770938138968
+    [Tue] => 0.53255219014429
+)
+stdClass Object
+(
+    [Jan] => 22.11121874121
+    [Feb] => -3.1821880656634
+    [Mar] => -13.992010759404
+    [Apr] => -22.38191732492
+    [May] => 13.758310568472
+    [Jul] => 17.327923717555
+    [Aug] => -6.5060498231277
+    [Oct] => 26.170840477114
+    [Nov] => 10.80027482005
+    [Dec] => 8.980037491605
+    [Jun] => -18.05504463954
+    [Sep] => -8.9961265974419
+)
+stdClass Object
+(
+    [2007] => 14.043613546131
+    [2008] => -1.4248316121082
+    [2009] => -4.2387565045984
+    [2010] => 2.1427342963185
+    [2014] => -6.2020702625751
+    [2015] => 38.234221934924
+    [2016] => -16.519642792183
+)
+stdClass Object
+(
+    [USD_CAD] => 26.035268605909
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 126.03526860591
+    [perfectBalance] => 446.9931325784
+    [unrealizedPl] => 2.1267538502785
+    [realizedPl] => 26.035268605909
+    [marginUsed] => 10.966666666667
+    [marginAvail] => 117.19535578952
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => 1.6874275540512
+    [NAV] => 128.16202245619
+    [longTradeCount] => 62
+    [shortTradeCount] => 30
+    [profitableTradeCount] => 22
+    [unprofitableTradeCount] => 69
+    [profitableTradeCountPerc] => 0.24175824175824
+    [unprofitableTradeCountPerc] => 0.75824175824176
+    [TPcount] => 22
+    [SLcount] => 69
+    [totalTradeTime] => 305784000
+    [avgTimePerTradeSecs] => 3360263.7362637
+    [avgTimePerTradeHours] => 933.40659340659
+    [avgTimePerTradeDays] => 38.891941391941
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => 0.099267439740109
+    [LRintercept] => 86.303155983803
+    [LRrSquared] => 0.61459639262999
+    [perTradePLStddev] => 4.7628159108558
+    [perTradeMeanReturn] => 0.28610185281219
+    [perTradeMeanReturnPerc] => 0.0017039302677636
+    [sharpeRatio] => 0.0029710587097613
+    [maxDrawdown] => 27.304514466631
+    [maxDrawdownPerc] => 0.17806543037637
+    [minBalance] => 86.780812718926
+    [maxBalance] => 153.33978307254
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 24
+            [tpMultiplier] => 4
+            [slMultiplier] => 1
+            [windowRatioThresholdBuyMin] => 0.1
+            [windowRatioThresholdBuyMax] => 0.25
+            [windowRatioThresholdSellMin] => 0.75
+            [windowRatioThresholdSellMax] => 0.9
+        )
+
+)
+
+
+START TIME: 1167631200	Mon, 01 Jan 2007 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Mon] => 31.02384833601
+    [Thu] => -6.3944421600293
+    [Fri] => 12.644248378752
+    [Wed] => -11.770938138968
+    [Tue] => 0.53255219014429
+)
+stdClass Object
+(
+    [Jan] => 22.11121874121
+    [Feb] => -3.1821880656634
+    [Mar] => -13.992010759404
+    [Apr] => -22.38191732492
+    [May] => 13.758310568472
+    [Jul] => 17.327923717555
+    [Aug] => -6.5060498231277
+    [Oct] => 26.170840477114
+    [Nov] => 10.80027482005
+    [Dec] => 8.980037491605
+    [Jun] => -18.05504463954
+    [Sep] => -8.9961265974419
+)
+stdClass Object
+(
+    [2007] => 14.043613546131
+    [2008] => -1.4248316121082
+    [2009] => -4.2387565045984
+    [2010] => 2.1427342963185
+    [2014] => -6.2020702625751
+    [2015] => 38.234221934924
+    [2016] => -16.519642792183
+)
+stdClass Object
+(
+    [USD_CAD] => 26.035268605909
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 126.03526860591
+    [perfectBalance] => 446.9931325784
+    [unrealizedPl] => 2.1267538502785
+    [realizedPl] => 26.035268605909
+    [marginUsed] => 10.966666666667
+    [marginAvail] => 117.19535578952
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => 1.6874275540512
+    [NAV] => 128.16202245619
+    [longTradeCount] => 62
+    [shortTradeCount] => 30
+    [profitableTradeCount] => 22
+    [unprofitableTradeCount] => 69
+    [profitableTradeCountPerc] => 0.24175824175824
+    [unprofitableTradeCountPerc] => 0.75824175824176
+    [TPcount] => 22
+    [SLcount] => 69
+    [totalTradeTime] => 305784000
+    [avgTimePerTradeSecs] => 3360263.7362637
+    [avgTimePerTradeHours] => 933.40659340659
+    [avgTimePerTradeDays] => 38.891941391941
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => 0.099267439740109
+    [LRintercept] => 86.303155983803
+    [LRrSquared] => 0.61459639262999
+    [perTradePLStddev] => 4.7628159108558
+    [perTradeMeanReturn] => 0.28610185281219
+    [perTradeMeanReturnPerc] => 0.0017039302677636
+    [sharpeRatio] => 0.0029710587097613
+    [maxDrawdown] => 27.304514466631
+    [maxDrawdownPerc] => 0.17806543037637
+    [minBalance] => 86.780812718926
+    [maxBalance] => 153.33978307254
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 24
+            [tpMultiplier] => 4
+            [slMultiplier] => 1
+            [windowRatioThresholdBuyMin] => 0.1
+            [windowRatioThresholdBuyMax] => 0.25
+            [windowRatioThresholdSellMin] => 0.75
+            [windowRatioThresholdSellMax] => 0.9
+        )
+
+)
+
+
+START TIME: 1167631200	Mon, 01 Jan 2007 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Mon] => 31.02384833601
+    [Thu] => -6.3944421600293
+    [Fri] => 12.644248378752
+    [Wed] => -11.770938138968
+    [Tue] => 0.53255219014429
+)
+stdClass Object
+(
+    [Jan] => 22.11121874121
+    [Feb] => -3.1821880656634
+    [Mar] => -13.992010759404
+    [Apr] => -22.38191732492
+    [May] => 13.758310568472
+    [Jul] => 17.327923717555
+    [Aug] => -6.5060498231277
+    [Oct] => 26.170840477114
+    [Nov] => 10.80027482005
+    [Dec] => 8.980037491605
+    [Jun] => -18.05504463954
+    [Sep] => -8.9961265974419
+)
+stdClass Object
+(
+    [2007] => 14.043613546131
+    [2008] => -1.4248316121082
+    [2009] => -4.2387565045984
+    [2010] => 2.1427342963185
+    [2014] => -6.2020702625751
+    [2015] => 38.234221934924
+    [2016] => -16.519642792183
+)
+stdClass Object
+(
+    [USD_CAD] => 26.035268605909
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 126.03526860591
+    [perfectBalance] => 446.9931325784
+    [unrealizedPl] => 2.1267538502785
+    [realizedPl] => 26.035268605909
+    [marginUsed] => 10.966666666667
+    [marginAvail] => 117.19535578952
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => 1.6874275540512
+    [NAV] => 128.16202245619
+    [longTradeCount] => 62
+    [shortTradeCount] => 30
+    [profitableTradeCount] => 22
+    [unprofitableTradeCount] => 69
+    [profitableTradeCountPerc] => 0.24175824175824
+    [unprofitableTradeCountPerc] => 0.75824175824176
+    [TPcount] => 22
+    [SLcount] => 69
+    [totalTradeTime] => 305784000
+    [avgTimePerTradeSecs] => 3360263.7362637
+    [avgTimePerTradeHours] => 933.40659340659
+    [avgTimePerTradeDays] => 38.891941391941
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => 0.099267439740109
+    [LRintercept] => 86.303155983803
+    [LRrSquared] => 0.61459639262999
+    [perTradePLStddev] => 4.7628159108558
+    [perTradeMeanReturn] => 0.28610185281219
+    [perTradeMeanReturnPerc] => 0.0017039302677636
+    [sharpeRatio] => 0.0029710587097613
+    [maxDrawdown] => 27.304514466631
+    [maxDrawdownPerc] => 0.17806543037637
+    [minBalance] => 86.780812718926
+    [maxBalance] => 153.33978307254
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 120
+            [tpMultiplier] => 6
+            [slMultiplier] => 4
+            [windowRatioThresholdBuyMin] => 0.1
+            [windowRatioThresholdBuyMax] => 0.25
+            [windowRatioThresholdSellMin] => 0.75
+            [windowRatioThresholdSellMax] => 0.9
+            [entryPerc] => 0.7
+        )
+
+)
+
+
+START TIME: 1167631200	Mon, 01 Jan 2007 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Wed] => -4.8455289124493
+    [Thu] => -4.1528028192302
+    [Fri] => -3.4513281084701
+    [Sun] => -4.0831132245
+    [Mon] => -4.9605562248689
+    [Tue] => -3.5555839953133
+    [Sat] => -0.01764653980765
+)
+stdClass Object
+(
+    [Jan] => -3.7887144363626
+    [Feb] => -2.8518798108194
+    [Mar] => -2.2006368269235
+    [Jun] => -2.8805263326649
+    [Jul] => -2.034527369763
+    [Aug] => -2.0040184341068
+    [Sep] => -0.83969264344021
+    [Oct] => -1.6419921887321
+    [Nov] => -1.819194750447
+    [Dec] => -1.9858687328776
+    [Apr] => -2.7482883940295
+    [May] => -0.271219904473
+)
+stdClass Object
+(
+    [2007] => -3.7248553589923
+    [2008] => -2.3792383553781
+    [2009] => -4.2571641002626
+    [2010] => -3.1652359194113
+    [2011] => -0.59020890262483
+    [2012] => -1.7563455814736
+    [2013] => -2.3160347907395
+    [2014] => -0.55362426490059
+    [2015] => -1.0048466262531
+    [2016] => -5.3190059246037
+)
+stdClass Object
+(
+    [USD_CAD] => -25.06655982464
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 74.933440175361
+    [perfectBalance] => 170.52968672829
+    [unrealizedPl] => -0.0041109356847096
+    [realizedPl] => -25.06655982464
+    [marginUsed] => 0.76666666666667
+    [marginAvail] => 74.162662573009
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => -0.0054861163121419
+    [NAV] => 74.929329239676
+    [longTradeCount] => 2679
+    [shortTradeCount] => 1167
+    [profitableTradeCount] => 1447
+    [unprofitableTradeCount] => 2398
+    [profitableTradeCountPerc] => 0.37633289986996
+    [unprofitableTradeCountPerc] => 0.62366710013004
+    [TPcount] => 0
+    [SLcount] => 0
+    [totalTradeTime] => 18788400
+    [avgTimePerTradeSecs] => 4886.4499349805
+    [avgTimePerTradeHours] => 1.3573472041612
+    [avgTimePerTradeDays] => 0.056556133506719
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => -0.32925563276578
+    [LRintercept] => 130.58504034299
+    [LRrSquared] => 0.99312839882653
+    [perTradePLStddev] => 0.02657603065416
+    [perTradeMeanReturn] => -0.0065192613328061
+    [perTradeMeanReturnPerc] => -7.5100680240784E-5
+    [sharpeRatio] => -0.38375768416555
+    [maxDrawdown] => 25.01368499674
+    [maxDrawdownPerc] => 0.25013487492611
+    [minBalance] => 74.987104593791
+    [maxBalance] => 100.00078959053
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 120
+            [tpMultiplier] => 4
+            [slMultiplier] => 3
+            [windowRatioThresholdBuyMin] => 0.1
+            [windowRatioThresholdBuyMax] => 0.25
+            [windowRatioThresholdSellMin] => 0.75
+            [windowRatioThresholdSellMax] => 0.9
+            [entryPerc] => 0.5
+        )
+
+)
+
+
+START TIME: 1167631200	Mon, 01 Jan 2007 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Tue] => 22.501177270479
+    [Sun] => -14.4316442332
+    [Wed] => 2.7238826641309
+    [Fri] => -0.95374521039438
+    [Mon] => 2.4297816249255
+)
+stdClass Object
+(
+    [Apr] => -5.1813575896992
+    [May] => -1.2282624606882
+    [Sep] => 4.2907336121583
+    [Nov] => 5.4572550723443
+    [Mar] => -2.9847469556253
+    [Jun] => -3.0938950327501
+    [Jul] => -2.0898906637163
+    [Aug] => -2.0626590434755
+    [Oct] => 5.5545939908916
+    [Feb] => 0.93870037689058
+    [Dec] => 5.0525827613729
+    [Jan] => 7.6163980482389
+)
+stdClass Object
+(
+    [2007] => 5.9315784261529
+    [2008] => -0.39038249445695
+    [2009] => 2.0718796867515
+    [2010] => -0.14141856348594
+    [2011] => -2.5678201192209
+    [2012] => -3.6939808902342
+    [2013] => 0.17051555835949
+    [2014] => 2.5166854160259
+    [2015] => 7.6827060756524
+    [2016] => 0.68968902039767
+)
+stdClass Object
+(
+    [USD_CAD] => 12.269452115942
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 112.26945211594
+    [perfectBalance] => 152.20142826077
+    [unrealizedPl] => 0.031904435640024
+    [realizedPl] => 12.269452115942
+    [marginUsed] => 1.4
+    [marginAvail] => 110.90135655158
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => 0.028417735224249
+    [NAV] => 112.30135655158
+    [longTradeCount] => 23
+    [shortTradeCount] => 18
+    [profitableTradeCount] => 17
+    [unprofitableTradeCount] => 23
+    [profitableTradeCountPerc] => 0.425
+    [unprofitableTradeCountPerc] => 0.575
+    [TPcount] => 14
+    [SLcount] => 6
+    [totalTradeTime] => 278798400
+    [avgTimePerTradeSecs] => 6969960
+    [avgTimePerTradeHours] => 1936.1
+    [avgTimePerTradeDays] => 80.670833333333
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => 0.11393860345104
+    [LRintercept] => 90.91229564117
+    [LRrSquared] => 0.17497804269683
+    [perTradePLStddev] => 1.8562297599945
+    [perTradeMeanReturn] => 0.30673630289855
+    [perTradeMeanReturnPerc] => 0.0027343194750674
+    [sharpeRatio] => -0.019762435118533
+    [maxDrawdown] => 11.467225909776
+    [maxDrawdownPerc] => 0.10383197831417
+    [minBalance] => 97.37636054896
+    [maxBalance] => 114.25807634856
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 120
+            [tpMultiplier] => 3
+            [slMultiplier] => 1
+            [windowRatioThresholdBuyMin] => 0.1
+            [windowRatioThresholdBuyMax] => 0.25
+            [windowRatioThresholdSellMin] => 0.75
+            [windowRatioThresholdSellMax] => 0.9
+            [entryPerc] => 0.5
+        )
+
+)
+
+
+START TIME: 1167631200	Mon, 01 Jan 2007 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Tue] => -16.79279518121
+    [Fri] => 32.343072034984
+    [Mon] => 4.1609862074423
+    [Wed] => 11.724515158488
+    [Sun] => -2.1279532216327
+    [Thu] => -8.3982416293865
+)
+stdClass Object
+(
+    [Jan] => 10.415192827008
+    [Mar] => -10.78884541059
+    [Apr] => -0.1061978615115
+    [May] => -9.2175370303058
+    [Jun] => 0.048292102840033
+    [Aug] => -5.9088859610255
+    [Sep] => 19.468282842153
+    [Nov] => 6.3526417580549
+    [Jul] => -1.8813675596381
+    [Oct] => 1.9259937560747
+    [Dec] => 12.786498061633
+    [Feb] => -2.1844841560085
+)
+stdClass Object
+(
+    [2007] => 8.0707891800305
+    [2008] => -8.3426802327127
+    [2009] => 7.883202585925
+    [2010] => 9.6011014691865
+    [2011] => -7.5193352199377
+    [2012] => -1.3647720028226
+    [2013] => -7.0647540617627
+    [2014] => 1.9046068146197
+    [2015] => 14.385308556929
+    [2016] => 3.3561162792297
+)
+stdClass Object
+(
+    [USD_CAD] => 20.909583368685
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 120.90958336868
+    [perfectBalance] => 265.3564755482
+    [unrealizedPl] => 2.9125979326164
+    [realizedPl] => 20.909583368685
+    [marginUsed] => 3.6333333333333
+    [marginAvail] => 120.18884796797
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => 2.4089057719562
+    [NAV] => 123.8221813013
+    [longTradeCount] => 38
+    [shortTradeCount] => 30
+    [profitableTradeCount] => 21
+    [unprofitableTradeCount] => 46
+    [profitableTradeCountPerc] => 0.3134328358209
+    [unprofitableTradeCountPerc] => 0.6865671641791
+    [TPcount] => 16
+    [SLcount] => 35
+    [totalTradeTime] => 250999200
+    [avgTimePerTradeSecs] => 3746256.7164179
+    [avgTimePerTradeHours] => 1040.6268656716
+    [avgTimePerTradeDays] => 43.359452736318
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => 0.08721146776679
+    [LRintercept] => 91.320095173343
+    [LRrSquared] => 0.31048148483328
+    [perTradePLStddev] => 3.4616619597437
+    [perTradeMeanReturn] => 0.31208333386097
+    [perTradeMeanReturnPerc] => 0.0023190967719586
+    [sharpeRatio] => -0.001329348443141
+    [maxDrawdown] => 26.968957800036
+    [maxDrawdownPerc] => 0.21638159188555
+    [minBalance] => 91.921176346777
+    [maxBalance] => 124.63610034952
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 120
+            [tpMultiplier] => 1
+            [slMultiplier] => 0.25
+            [windowRatioThresholdBuyMin] => 0
+            [windowRatioThresholdBuyMax] => 0.2
+            [windowRatioThresholdSellMin] => 0.8
+            [windowRatioThresholdSellMax] => 1
+            [entryPerc] => 0.5
+        )
+
+)
+
+
+START TIME: 1325397600	Sun, 01 Jan 2012 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Tue] => 13.258962264133
+    [Fri] => -1.5386719246911
+    [Thu] => -23.519813219847
+    [Wed] => -46.404945418476
+    [Sun] => 4.4651401615651
+    [Mon] => 6.7235790197636
+)
+stdClass Object
+(
+    [Jan] => 7.8596144382557
+    [Feb] => -18.82945891704
+    [Apr] => -3.1679290613915
+    [May] => -3.8537095452129
+    [Jun] => -11.871069106143
+    [Jul] => -9.6039014106481
+    [Aug] => -3.3654949166467
+    [Sep] => 2.9165480209529
+    [Oct] => -3.6785612158708
+    [Dec] => 2.9865259144043
+    [Mar] => -19.210431321408
+    [Nov] => 12.802118003196
+)
+stdClass Object
+(
+    [2012] => -23.936479605345
+    [2013] => -13.403220178264
+    [2014] => -6.7751528234189
+    [2015] => 10.165187052794
+    [2016] => -13.066083563319
+)
+stdClass Object
+(
+    [USD_CAD] => -47.015749117552
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 52.984250882448
+    [perfectBalance] => 419.33428547424
+    [unrealizedPl] => -0.16306711549345
+    [realizedPl] => -47.015749117552
+    [marginUsed] => 10.733333333333
+    [marginAvail] => 42.087850433621
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => -0.30776525623667
+    [NAV] => 52.821183766954
+    [longTradeCount] => 135
+    [shortTradeCount] => 31
+    [profitableTradeCount] => 31
+    [unprofitableTradeCount] => 134
+    [profitableTradeCountPerc] => 0.18787878787879
+    [unprofitableTradeCountPerc] => 0.81212121212121
+    [TPcount] => 29
+    [SLcount] => 133
+    [totalTradeTime] => 79210800
+    [avgTimePerTradeSecs] => 480065.45454545
+    [avgTimePerTradeHours] => 133.35151515152
+    [avgTimePerTradeDays] => 5.5563131313131
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => -0.14662355406742
+    [LRintercept] => 103.68237371046
+    [LRrSquared] => 0.69591533991636
+    [perTradePLStddev] => 2.3963791750385
+    [perTradeMeanReturn] => -0.28494393404577
+    [perTradeMeanReturnPerc] => -0.0045251241037897
+    [sharpeRatio] => -0.032547868711944
+    [maxDrawdown] => 58.478008167352
+    [maxDrawdownPerc] => 0.55429156759123
+    [minBalance] => 47.022438865387
+    [maxBalance] => 105.50044703274
+)
+
+
+
+
+===========================================================================
+
+
+SETTINGS
+leverage = 30
+
+Array
+(
+    [USD_CAD] => Array
+        (
+            [acceptedLossPerTrade] => 0.02
+            [lookbackHours] => 48
+            [tpMultiplier] => 2.5
+            [slMultiplier] => 2
+            [windowRatioThresholdBuyMin] => 0
+            [windowRatioThresholdBuyMax] => 0.4
+            [windowRatioThresholdSellMin] => 0.6
+            [windowRatioThresholdSellMax] => 1
+            [entryPerc] => 0.55
+        )
+
+)
+
+
+START TIME: 1325397600	Sun, 01 Jan 2012 00:00:00 -0600
+END TIME: 1483131600	Fri, 30 Dec 2016 15:00:00 -0600
+
+ACCOUNT
+==============
+stdClass Object
+(
+    [Tue] => -3.5106069817367
+    [Thu] => 0.50360270975714
+    [Fri] => 9.0343826151067
+    [Wed] => 12.570005599717
+    [Sun] => 2.5888880418117
+    [Mon] => 5.9119536429032
+)
+stdClass Object
+(
+    [Jan] => 14.206616766603
+    [May] => 7.2594782627538
+    [Aug] => -1.4438433632067
+    [Sep] => 7.7574770213676
+    [Oct] => -2.2685923146565
+    [Feb] => -4.6788980330436
+    [Dec] => 10.434834860576
+    [Jun] => -4.557654589557
+    [Apr] => -2.3611769303037
+    [Jul] => 5.353038378562
+    [Mar] => -2.6030544315364
+)
+stdClass Object
+(
+    [2012] => -1.6559599021328
+    [2013] => 2.506134297433
+    [2014] => 7.7846771884003
+    [2015] => 20.231910561394
+    [2016] => -1.7685365175352
+)
+stdClass Object
+(
+    [USD_CAD] => 27.098225627559
+)
+stdClass Object
+(
+    [accountId] => 111111
+    [accountName] => myAccount
+    [leverage] => 30
+    [balance] => 127.09822562756
+    [perfectBalance] => 169.0278621531
+    [unrealizedPl] => 1.1215704965891
+    [realizedPl] => 27.098225627559
+    [marginUsed] => 1.3333333333333
+    [marginAvail] => 126.88646279082
+    [openTrades] => 1
+    [openOrders] => 0
+    [unrealizedPlPerc] => 0.88244386658528
+    [NAV] => 128.21979612415
+    [longTradeCount] => 30
+    [shortTradeCount] => 4
+    [profitableTradeCount] => 21
+    [unprofitableTradeCount] => 12
+    [profitableTradeCountPerc] => 0.63636363636364
+    [unprofitableTradeCountPerc] => 0.36363636363636
+    [TPcount] => 21
+    [SLcount] => 12
+    [totalTradeTime] => 110163600
+    [avgTimePerTradeSecs] => 3338290.9090909
+    [avgTimePerTradeHours] => 927.30303030303
+    [avgTimePerTradeDays] => 38.637626262626
+    [deposits] => 0
+    [withdrawls] => 0
+    [transferIn] => 0
+    [transferOut] => 0
+)
+stdClass Object
+(
+    [LRslope] => 0.48283626133519
+    [LRintercept] => 47.287727190502
+    [LRrSquared] => 0.96240006495866
+    [perTradePLStddev] => 2.3997670988514
+    [perTradeMeanReturn] => 0.82115835235028
+    [perTradeMeanReturnPerc] => 0.0070161058721758
+    [sharpeRatio] => 0.028476069149139
+    [maxDrawdown] => 7.9636309044057
+    [maxDrawdownPerc] => 0.058962841981378
+    [minBalance] => 96.336646867385
+    [maxBalance] => 135.06185653197
+)

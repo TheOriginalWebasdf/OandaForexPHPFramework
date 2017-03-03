@@ -1,0 +1,6 @@
+<?php
+// This is a sample apikey.inc.php file.  To obtain an Oanda API key, please visit the following URL for instructions:
+// http://developer.oanda.com/rest-live/introduction/
+
+define ("DEMO_API_KEY", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+define ("LIVE_API_KEY", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");

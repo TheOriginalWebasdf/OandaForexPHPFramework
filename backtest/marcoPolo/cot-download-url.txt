@@ -1,0 +1,25 @@
+http://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm
+=================
+
+Traders in Financial Futures ; Futures Only Reports:.
+http://www.cftc.gov/files/dea/history/fut_fin_txt_2016.zip
+
+
+
+Traders in Financial Futures ; Futures-and-Options Combined Reports:
+http://www.cftc.gov/files/dea/history/com_fin_txt_2016.zip
+^^^^^^^^^^ USE THIS ONE ^^^^^^^^^^^
+
+
+
+
+
+
+http://www.cftc.gov/Marketreports/CommitmentsofTraders/index.htm
+==================
+Current week's COT
+Options and Futures Commitments of Traders Comma Delimited
+http://www.cftc.gov/dea/newcot/deacom.txt
+
+
+

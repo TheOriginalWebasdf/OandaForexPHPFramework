@@ -477,15 +477,44 @@ class BacktestAccount {
 		$returnArr = array();
 		$returnArr['candles'] = array();
 
+		// determine start and end time as well as difference between the two
 		$startTime = $tickTime;
-		$endTime = $tickTime - ($this->gran_seconds($this->granularity) * ($numCandles-1));
+		
+		if ($numCandles > 1) {
+			$endTime = $tickTime - ($this->gran_seconds($this->granularity) * ($numCandles-1));
+		} else {
+			$endTime = $tickTime - $this->gran_seconds($this->granularity);
+		}
+		
+		$timeDiff = $startTime - $endTime;
 
-		$query = "SELECT * FROM candles WHERE instrument='".$instrument."' AND time <= '".$tickTime."' AND time >= '".$endTime."' ORDER BY time LIMIT ".$numCandles;
 
-//		$query = "SELECT * FROM candles WHERE instrument='".$instrument."' AND time <= '".$tickTime."' ORDER BY time DESC LIMIT ".$numCandles;
-		// print "$query\n";
+		// get min tick time for this instrument
+		$query = "SELECT MIN(time) AS minTickTime FROM candles WHERE instrument='".$instrument."'";
 		$res = $this->db->query($query);
+		$row = $res->fetchArray(SQLITE3_ASSOC);
+		$minTickTime = $row['minTickTime'];
 
+
+		// while candles retrieved is less than requested candles, keep incrementing endTime by timeDiff
+		do {
+			
+			$query = "SELECT * FROM candles WHERE instrument='".$instrument."' AND time <= '".$tickTime."' AND time >= '".$endTime."' ORDER BY time";
+			$res = $this->db->query($query);
+
+			// stupid sqlite3 functions grr...can't get a simple row count
+			$numRows = 0;
+			while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
+				$numRows++;
+			}
+			$res->reset();
+			
+			$endTime -= $timeDiff;
+			
+		} while ($numRows < $numCandles && $endTime >= $minTickTime);
+
+
+		// fill in the candles array
 		while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
 			$row['openMid'] = ($row['openBid'] + $row['openAsk']) / 2;
 			$row['highMid'] = ($row['highBid'] + $row['highAsk']) / 2;
@@ -494,6 +523,14 @@ class BacktestAccount {
 			$returnArr['candles'][] = $row;
 		}
 
+
+		// trim the candle array to the desired length
+		if (count($returnArr['candles']) > $numCandles) {
+			$returnArr['candles'] = array_slice($returnArr['candles'], -1 * $numCandles);
+		}
+		
+		
+		// convert candles to json object
 		$object = json_decode(json_encode($returnArr), FALSE);
 		return $object;
 	}
@@ -1075,6 +1112,16 @@ class BacktestAccount {
 				$tradeClosed = false;
 				if ($t['side'] == "buy") {
 
+					// check if SL and TP are both in the same candle....if so, drop a log just for informational purposes
+					if (isset($t['stopLoss']) && isset($t['takeProfit'])) {
+						if ($t['stopLoss'] >= $c->lowBid && $t['stopLoss'] <= $c->highBid) {
+							if($t['takeProfit'] >= $c->lowBid && $t['takeProfit'] <= $c->highBid) {
+								$this->backtestLog("pair:".$t['instrument']."  id:".$t['id']."  info: Candle covers SL and TP!  Assuming SL.");
+							}
+						}
+					}
+					
+
 					// check for SL first (assume worst case scenario)
 					if (isset($t['stopLoss']) && $t['stopLoss'] > 0) {
 
@@ -1101,6 +1148,16 @@ class BacktestAccount {
 
 					// END: side == buy
 				} else if ($t['side'] == "sell") {
+
+					// check if SL and TP are both in the same candle....if so, drop a log just for informational purposes
+					if (isset($t['stopLoss']) && isset($t['takeProfit'])) {
+						if ($t['stopLoss'] >= $c->lowAsk && $t['stopLoss'] <= $c->highAsk) {
+							if($t['takeProfit'] >= $c->lowAsk && $t['takeProfit'] <= $c->highAsk) {
+								$this->backtestLog("pair:".$t['instrument']."  id:".$t['id']."  info: Candle covers SL and TP!  Assuming SL.");
+							}
+						}
+					}
+
 
 					// check for SL first (assume worst case scenario)
 					if (isset($t['stopLoss']) && $t['stopLoss'] > 0) {

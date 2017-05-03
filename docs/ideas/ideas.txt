@@ -1,0 +1,53 @@
+marco polo existing trade mods
+==============================
+- if trade is positive and at a specific percent between open and TP, simply close it.  Set this percentage rather high (like .97 or so).
+  this will prevent trades that "almost" hit TP and then proceed to crash down and hit SL.
+- if NAV is up x % from the balance, close ALL TRADES
+
+
+
+
+
+
+big ben and marco polo existing trade mods
+===========================
+if trade is in positive territory at x (configurable per pair) percent between open and TP, move SL to break even
+
+if trade is in positive territory at y (configurable per pair) percent between open and TP, move SL to z (configurable per pair) percent.
+	- this results in getting some profit guarantee out of the trade
+
+
+patterns
+========
+loop through candle database and detect patterns
+
+9       |                                         
+8       |  |                                       
+7       |  |                                       
+6       |  -                                       
+5       |  |                                       
+4   -   |  |                                        
+3   | - |                                           
+2 - | | |                                            
+1 |   | |                                           
+0     | -                                          
+
+calcaulate price range (high and low) of x number of candles
+for each candle, calculate the position of the close relative to the top of the range.
+mark each candle with a number 0-9 meaning .0 to .9.  Store this sequence of numbers to the database.
+go out y candles and calculate the new position.  Record this on the db as well.
+Use these signatures to attempt new trades as the opportunities come up in the price action.
+If signature is not found, calculate new signature and write it to the database.
+
+
+
+dad's strategy
+==============
+follow the dojis.
+ranging strategy
+
+Detect bigger trend (bias)
+See doji, make reverse trade only if it's in the direction of the trend
+
+
+

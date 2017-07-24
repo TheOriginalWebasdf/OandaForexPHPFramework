@@ -79,17 +79,17 @@ if (!isset($start)) {
 		// if NOT found, default the year and start time to 1/1/2015
 		$year = 2015;
 		print "year=$year\n";
-		$start = mktime(0, 0, 0, 1, 1, $year); 
+		$start = mktime(0, 0, 0, 1, 1, $year);
 		
 	}
 	
-} else if (isset($start) && strpos($start, "YEAR") !== false) { 
+} else if (isset($start) && strpos($start, "YEAR") !== false) {
 
 	$year = filter_var($start, FILTER_SANITIZE_NUMBER_INT);
 	print "year=$year\n";
-	$start = mktime(0, 0, 0, 1, 1, $year); 
+	$start = mktime(0, 0, 0, 1, 1, $year);
 	
-} 
+}
 
 print "start=$start\n";
 print "start=".date("c", $start)."\n\n";
@@ -98,11 +98,11 @@ print "start=".date("c", $start)."\n\n";
 
 
 
-$fx = new Fx("Demo");
+$fx = new Fx("Live");
 
 
-$fx->oandaApiKey = DEMO_API_KEY;
-$fx->oandaAccountId = 8637930;
+$fx->oandaApiKey = LIVE_API_KEY;
+$fx->oandaAccountId = 188590;
 
 $fx->configureAccount();
 
@@ -129,23 +129,23 @@ do {
 		$db->exec($query);
 
 
-		$query = "INSERT INTO candles 
-					(instrument, 
-					granularity, 
-					time, 
-					openBid, openAsk, 
-					highBid, highAsk, 
-					lowBid, lowAsk, 
-					closeBid, closeAsk, 
-					volume, 
-					complete) 
-				VALUES 
+		$query = "INSERT INTO candles
+					(instrument,
+					granularity,
+					time,
+					openBid, openAsk,
+					highBid, highAsk,
+					lowBid, lowAsk,
+					closeBid, closeAsk,
+					volume,
+					complete)
+				VALUES
 					('".$pair."',
 					'".$granularity."',
 					'".$c->time."',
-					'".$c->openBid."', '".$c->openAsk."', 
-					'".$c->highBid."', '".$c->highAsk."', 
-					'".$c->lowBid."', '".$c->lowAsk."', 
+					'".$c->openBid."', '".$c->openAsk."',
+					'".$c->highBid."', '".$c->highAsk."',
+					'".$c->lowBid."', '".$c->lowAsk."',
 					'".$c->closeBid."', '".$c->closeAsk."',
 					'".$c->volume."',
 					'".$c->complete."'

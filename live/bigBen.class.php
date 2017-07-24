@@ -135,7 +135,7 @@ class BigBen extends Fx {
 		$this->settings = array(
 
 			"USD_CHF" => array(
-				"acceptedLossPerTrade" => .03,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 1.75,
 				"slLevel" => 1.7,
 				"openRatioMin" => .75,
@@ -146,7 +146,7 @@ class BigBen extends Fx {
 			),
 
 			"GBP_USD" => array(
-				"acceptedLossPerTrade" => .028,
+				"acceptedLossPerTrade" => .02,
 				"tpLevelMax" => 2.2,
 				"slLevel" => 2,
 				"openRatioMin" => .80,
@@ -157,7 +157,7 @@ class BigBen extends Fx {
 			),
 
 			"USD_CAD" => array(
-				"acceptedLossPerTrade" => .026,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 0.75,
 				"slLevel" => 0.35,
 				"openRatioMin" => .70,
@@ -168,7 +168,7 @@ class BigBen extends Fx {
 			),
 
 			"USD_JPY" => array(
-				"acceptedLossPerTrade" => .024,
+				"acceptedLossPerTrade" => .02,
 				"tpLevelMax" => 6.00,
 				"slLevel" => 1.00,
 				"openRatioMin" => .70,
@@ -179,7 +179,7 @@ class BigBen extends Fx {
 			),
 
 			"NZD_USD" => array(
-				"acceptedLossPerTrade" => .022,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 6.00,
 				"slLevel" => 1.25,
 				"openRatioMin" => .80,
@@ -201,7 +201,7 @@ class BigBen extends Fx {
 			),
 
 			"AUD_USD" => array(
-				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .015,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 9.00,
 				"slLevel" => 3.00,
 				"openRatioMin" => .80,
@@ -348,8 +348,21 @@ class BigBen extends Fx {
 				
 				$loop=$this->settings[$pairToTrade]['lookbackCandles'];
 				
+				print "determine long/short bias\n";
+				print "=========================\n";
+				print "candleArrLastIdx=$candleArrLastIdx\n";
+				print "loop=$loop\n";
+
 				for ($i=$candleArrLastIdx; $i>=$candleArrLastIdx-$this->settings[$pairToTrade]['lookbackCandles']; $i--) {
 					$distance = ($candleArr[$pairToTrade]->candles[$i]->closeBid - $candleArr[$pairToTrade]->candles[$i]->openBid) * $loop;
+
+					print "i=$i\n";
+					print "loop=$loop\n";
+					print "distance=$distance\n";
+					print "current loop candle\n";
+					print_r($candleArr[$pairToTrade]->candles[$i]);
+					print "\n\n";
+					
 					$candleCloseBidArr[] = $candleArr[$pairToTrade]->candles[$i]->closeBid;
 					$candleCloseAskArr[] = $candleArr[$pairToTrade]->candles[$i]->closeAsk;
 					
@@ -358,7 +371,10 @@ class BigBen extends Fx {
 					$loop--;
 				}
 
+				print "candleCloseBidArr\n";
 				print_r($candleCloseBidArr);
+
+				print "candleCloseAskArr\n";
 				print_r($candleCloseAskArr);
 
 

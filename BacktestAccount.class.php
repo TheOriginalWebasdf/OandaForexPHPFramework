@@ -90,9 +90,14 @@ class BacktestAccount {
 	private $transferOut = 0;
 	private $totalTradeTime = 0;
 	private $avgTimePerTrade = 0;
+	private $totalWinTradeTime = 0;
+	private $avgTimePerWinTrade = 0;
+	private $totalLossTradeTime = 0;
+	private $avgTimePerLossTrade = 0;
 	private $trades = array();
 	private $orders = array();
 	private $pairPerformance = array();
+	private $hourPerformance = array();
 	private $dayPerformance = array();
 	private $monthPerformance = array();
 	private $yearPerformance = array();
@@ -292,9 +297,14 @@ class BacktestAccount {
 						"TPcount" => $this->TPcount,
 						"SLcount" => $this->SLcount,
 						"totalTradeTime" => $this->totalTradeTime,
-						"avgTimePerTradeSecs" => $this->avgTimePerTrade,
 						"avgTimePerTradeHours" => $this->avgTimePerTrade / 60 / 60,
 						"avgTimePerTradeDays" => $this->avgTimePerTrade / 86400,
+						"totalWinTradeTime" => $this->totalWinTradeTime,
+						"avgTimePerWinTradeHours" => $this->avgTimePerWinTrade / 60 / 60,
+						"avgTimePerWinTradeDays" => $this->avgTimePerWinTrade / 86400,
+						"totalLossTradeTime" => $this->totalLossTradeTime,
+						"avgTimePerLossTradeHours" => $this->avgTimePerLossTrade / 60 / 60,
+						"avgTimePerLossTradeDays" => $this->avgTimePerLossTrade / 86400,
 						"deposits" => $this->deposits,
 						"withdrawls" => $this->withdrawls,
 						"transferIn" => $this->transferIn,
@@ -346,6 +356,17 @@ class BacktestAccount {
 
 
 
+	/////////////////
+	// Get performance for hours of the day
+	/////////////////
+	public function getHourPerformance()
+	{
+		$object = json_decode(json_encode($this->hourPerformance), FALSE);
+		return $object;
+	}
+	
+	
+	
 	/////////////////
 	// Get performance for days of the week
 	/////////////////
@@ -399,7 +420,7 @@ class BacktestAccount {
 		$excessReturnMean = $statObj->mean($excessReturnArr);
 		$excessReturnStddev = $statObj->standardDeviation($excessReturnArr);
 		
-		$sharpe = $excessReturnMean / $excessReturnStddev;		
+		$sharpe = $excessReturnMean / $excessReturnStddev;
 		return $sharpe;
 	}
 
@@ -589,6 +610,11 @@ class BacktestAccount {
 	public function buy_market($units, $pair, $rest = FALSE, $bidPrice=NULL, $askPrice=NULL)
 	{
 
+		if ($units < 1) {
+			$this->backtestLog("ERROR: Attempted negative units.  pair:$pair  type:BUY MARKET  units:$units  tick: ".$this->tickTime);
+			return false;
+		}
+
 		// figure out prices
 		// bid and ask prices sent to this function...it's probably an order that's been placed
 		if ($bidPrice != NULL && $askPrice != NULL) {
@@ -692,6 +718,13 @@ class BacktestAccount {
 	/////////////////
 	public function sell_market($units, $pair, $rest = FALSE, $bidPrice=NULL, $askPrice=NULL)
 	{
+
+		if ($units < 1) {
+			$this->backtestLog("ERROR: Attempted negative units.  pair:$pair  type:SELL MARKET  units:$units  tick: ".$this->tickTime);
+			return false;
+		}
+
+
 		// figure out prices
 		// bid and ask prices sent to this function...it's probably an order that's been placed
 		if ($bidPrice != NULL && $askPrice != NULL) {
@@ -927,10 +960,6 @@ class BacktestAccount {
 				$this->balance += $profitUSD;
 				$this->realizedPl += $profitUSD;
 				
-				// update profitable and unprofitable trade count
-				if ($profitUSD >= 0) { $this->profitableTradeCount++; }
-				if ($profitUSD < 0)  { $this->unprofitableTradeCount++; }
-				
 				// calculate the perfect trade profit (max profit from the $t['time'] to tickTime)
 				$perfectProfitUSD = $this->calculatePerfectProfit($t['instrument'], $t['side'], $t['units'], $t['price'], $t['time']);
 				$this->perfectBalance += $perfectProfitUSD;
@@ -947,6 +976,18 @@ class BacktestAccount {
 					$this->avgTimePerTrade = $this->totalTradeTime / $totalTrades;
 				}
 				
+				// update profitable and unprofitable trade counts
+				// calculated total and avg trade time for each
+				if ($profitUSD >= 0) {
+					$this->profitableTradeCount++;
+					$this->totalWinTradeTime += $this->tickTime - $t['time'];
+					$this->avgTimePerWinTrade = $this->totalWinTradeTime / $this->profitableTradeCount;
+				} else if ($profitUSD < 0) {
+					$this->unprofitableTradeCount++;
+					$this->totalLossTradeTime += $this->tickTime - $t['time'];
+					$this->avgTimePerLossTrade = $this->totalLossTradeTime / $this->unprofitableTradeCount;
+				}
+				
 				
 				// set profitable trade count and unprofitable trade count percentages
 				if ($totalTrades > 0) {
@@ -961,25 +1002,33 @@ class BacktestAccount {
 					$this->pairPerformance[$t['instrument']] += $profitUSD;
 				}
 				
-				// update day performance array
-				if (!isset($this->dayPerformance[date("D", $this->tickTime)])) {
-					$this->dayPerformance[date("D", $this->tickTime)] = $profitUSD;
+				
+				// update hour performance array
+				if (!isset($this->hourPerformance[date("H", $t['time'])])) {
+					$this->hourPerformance[date("H", $t['time'])] = $profitUSD;
 				} else {
-					$this->dayPerformance[date("D", $this->tickTime)] += $profitUSD;
+					$this->hourPerformance[date("H", $t['time'])] += $profitUSD;
+				}
+				
+				// update day performance array
+				if (!isset($this->dayPerformance[date("D", $t['time'])])) {
+					$this->dayPerformance[date("D", $t['time'])] = $profitUSD;
+				} else {
+					$this->dayPerformance[date("D", $t['time'])] += $profitUSD;
 				}
 				
 				// update month performance array
-				if (!isset($this->monthPerformance[date("M", $this->tickTime)])) {
-					$this->monthPerformance[date("M", $this->tickTime)] = $profitUSD;
+				if (!isset($this->monthPerformance[date("M", $t['time'])])) {
+					$this->monthPerformance[date("M", $t['time'])] = $profitUSD;
 				} else {
-					$this->monthPerformance[date("M", $this->tickTime)] += $profitUSD;
+					$this->monthPerformance[date("M", $t['time'])] += $profitUSD;
 				}
 				
 				// update year performance array
-				if (!isset($this->yearPerformance[date("Y", $this->tickTime)])) {
-					$this->yearPerformance[date("Y", $this->tickTime)] = $profitUSD;
+				if (!isset($this->yearPerformance[date("Y", $t['time'])])) {
+					$this->yearPerformance[date("Y", $t['time'])] = $profitUSD;
 				} else {
-					$this->yearPerformance[date("Y", $this->tickTime)] += $profitUSD;
+					$this->yearPerformance[date("Y", $t['time'])] += $profitUSD;
 				}
 				
 				
@@ -1641,7 +1690,7 @@ class BacktestAccount {
 		if (date("M", $this->tickTime) != $this->previousMonth) {
 			$this->previousMonth = date("M", $this->tickTime);
 			return true;
-		} else {		
+		} else {
 			$this->previousMonth = date("M", $this->tickTime);
 			return false;
 		}

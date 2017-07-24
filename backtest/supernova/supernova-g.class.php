@@ -7,8 +7,8 @@ require_once __DIR__."/../../Statistics.class.php";
 				"trendLookbackCandles" => 24*2,		// how many candles to look back for trend detection
 				"trendRatioThreshold" => .65,		// after up/down ratio calculated, if it exceeds this threshold, it is determined to be a trend
 				"tradeLookbackCandles" => 16,		// how many candles to look back for trade determination
-				"tradePercentileThreshold" => .9,
-				"tpMultiplier" => 2.75,				// multiply the trade lookback window range to determine TP price
+				"windowRatioThresholdSell" => .85,	// when closing price goes above this ratio of the trade lookback window, sell
+				"windowRatioThresholdBuy" => .15,	// when closing price goes below this ratio of the trade lookback window, buy
 				"slMultiplier" => 2,				// multiply the trade lookback window range to determine SL price
 
 */
@@ -17,7 +17,7 @@ require_once __DIR__."/../../Statistics.class.php";
 
 
 
-class TeaParty extends Fx {
+class Supernova extends Fx {
 	
 	
 	
@@ -28,68 +28,26 @@ class TeaParty extends Fx {
 
 
 		$this->currencyBasket = array(
-		//"EUR_USD",
-		//"GBP_USD",
-		"USD_CAD",
-		//"AUD_USD",
-		//"NZD_USD",
-		//"USD_JPY",
+		"EUR_USD",
 		);
 
 		$this->settings = array(
 
-			//"USD_CAD" => array(
-				//"acceptedLossPerTrade" => .015,
-				//"trendLookbackCandles" => 24*3,
-				//"trendRatioThreshold" => .7,
-				//"tradeLookbackCandles" => 24,
-				//"tradePercentileThresholdMin" => .7,
-				//"tradePercentileThresholdMax" => 1.00,
-				//"tpMultiplier" => 7,
-				//"slMultiplier" => 3,
-			//),
-
-
-			"USD_CAD" => array(
-				"acceptedLossPerTrade" => .015,
-				"trendLookbackCandles" => 24*3,
-				"trendRatioThreshold" => .55,
-				"tradeLookbackCandles" => 24,
-				"tradePercentileThresholdMin" => .8,
-				"tradePercentileThresholdMax" => 1.00,
-				"tpMultiplier" => 7,
-				"slMultiplier" => 3,
-			),
-
-
-
-			"GBP_USD" => array(
-				"acceptedLossPerTrade" => .01,
-				"trendLookbackCandles" => 24,
-				"trendRatioThreshold" => .60,
-				"tradeLookbackCandles" => 24,
-				"tradePercentileThresholdMin" => .80,
-				"tradePercentileThresholdMax" => 1.00,
-				"tpMultiplier" => 5.5,
-				"slMultiplier" => 4,
-			),
-
 			"EUR_USD" => array(
-				"acceptedLossPerTrade" => .015,
-				"trendLookbackCandles" => 24*2,
-				"trendRatioThreshold" => .65,
-				"tradeLookbackCandles" => 24,
-				"tradePercentileThresholdMin" => .80,
-				"tradePercentileThresholdMax" => .95,
-				"tpMultiplier" => 3.2,
-				"slMultiplier" => 1.8,
+				"acceptedLossPerTrade" => .02,
+				"tradeLookbackCandles" => 6*24,  // 24 hrs
+				"trendRatioThreshold" => .55,
+				"windowRatioThresholdSell" => .9,
+				"windowRatioThresholdBuy" => .1,
+				"slMultiplier" => .2,
+				"tpMultiplier" => .4,
 			),
 
 
 		);	// END: settings array
 
 
-		$this->granularity = "H1";
+		$this->granularity = "M10";
 		$this->statObj = new Statistics();
 
 
@@ -111,7 +69,7 @@ class TeaParty extends Fx {
 			$this->btLogFile = $configArr['btLogFile'];
 			$this->btStatsFile = $configArr['btStatsFile'];
 			$this->btCorrelationFile = $configArr['btCorrelationFile'];
-
+			
 		} else {
 
 			$this->oandaApiKey = $configArr['oandaApiKey'];
@@ -127,8 +85,10 @@ class TeaParty extends Fx {
 	
 	
 	
+
+
 	
-	
+
 	// Execute strategy
 	function execute()
 	{
@@ -139,6 +99,13 @@ class TeaParty extends Fx {
 
 		print "================================ ".date("c", $this->getTickTime())." ===============================\n";
 		print "NAV=".$acctInfo->NAV."\n";
+
+
+		//if ($this->system == "Backtest") {
+			//if ($this->monthChange()) {
+				//$this->deposit(10);
+			//}
+		//}
 
 
 
@@ -158,11 +125,6 @@ class TeaParty extends Fx {
 
 			$trades = $this->trade_pair($pairToTrade, 500);
 			$refreshTrades = false;
-			
-
-			if ($refreshTrades === true) {
-				$trades = $this->trade_pair($pairToTrade, 500);
-			}
 
 
 
@@ -179,16 +141,18 @@ class TeaParty extends Fx {
 				print "=== $pairToTrade Get Candles ===\n";
 
 				// get current candles
-				$oRest = array("count"=>$this->settings[$pairToTrade]['trendLookbackCandles'] + 24, "alignmentTimezone"=>"America/Chicago");
+				$oRest = array("count"=>$this->settings[$pairToTrade]['tradeLookbackCandles'] + 24, "alignmentTimezone"=>"America/Chicago");
 				$oGran = $this->granularity;
 				$oCandleFormat = "bidask";
 
-				$btNumCandles = $this->settings[$pairToTrade]['trendLookbackCandles'] * 8;
+				$btNumCandles = $this->settings[$pairToTrade]['tradeLookbackCandles'] + 24;
 				print "btNumCandles=$btNumCandles\n";
 
 				$candleArr[$pairToTrade] = $this->candles($pairToTrade, $oGran, $oRest, $oCandleFormat, $btNumCandles);
-
+				
 				array_pop($candleArr[$pairToTrade]->candles);
+
+
 				$candle = end($candleArr[$pairToTrade]->candles);
 				$candleArrLastIdx = count($candleArr[$pairToTrade]->candles) - 1;
 				print "candleArrLAstIdx=$candleArrLastIdx";
@@ -205,17 +169,16 @@ class TeaParty extends Fx {
 
 
 
-				// begin trend detection (long/short bias)
+				// determine min, max, closing ratio, etc
 				$candleArrLastIdx = count($candleArr[$pairToTrade]->candles) - 1;
-				$downDistance = 0;
-				$upDistance = 0;
 				$min = 99999999;
 				$max = 0;
-				$loop = 1;
+				$downDistance = 0;
+				$upDistance = 0;
+				$loop = 0;
 
-
-				// detect trend w/in the "trend window"
-				for ($i=$candleArrLastIdx; $i>=$candleArrLastIdx-$this->settings[$pairToTrade]['trendLookbackCandles']; $i--) {
+				// get min and max w/in the trade window
+				for ($i=$candleArrLastIdx; $i>=$candleArrLastIdx-$this->settings[$pairToTrade]['tradeLookbackCandles']; $i--) {
 
 					if ($candleArr[$pairToTrade]->candles[$i]->lowBid < $min) {
 						$min = $candleArr[$pairToTrade]->candles[$i]->lowBid;
@@ -230,14 +193,27 @@ class TeaParty extends Fx {
 					if ($distance < 0) { $downDistance += abs($distance); }
 					else if ($distance > 0) { $upDistance += $distance; }
 					$loop++;
+
 				}
 
+
+				print "min = $min\n";
+				print "max = $max\n";
+
+				$tradeWindowRange = $max - $min;
+				print "tradeWindowRange = $tradeWindowRange\n";
+
+				$windowClosingRatio = ($candle->closeBid - $min) / ($max - $min);
+				print "windowClosingRatio = $windowClosingRatio\n";
+
+
 				$totalDistance = $upDistance + $downDistance;
+
 				if ($totalDistance > 0) {
 					$upRatio = $upDistance / $totalDistance;
 					$downRatio = $downDistance / $totalDistance;
 				}
-				
+
 				print "upDistance = $upDistance\n";
 				print "downDistance = $downDistance\n";
 				print "upRatio = $upRatio\n";
@@ -253,54 +229,11 @@ class TeaParty extends Fx {
 
 				print "trend bias=$bias\n";
 
-				$trendWindowRange = $max - $min;
-				print "trendWindowRange = $trendWindowRange\n";
 
 
 
 
 
-
-
-				// determine where current quote is within the "trade window"
-				$min = 99999999;
-				$max = 0;
-				$candleSizeArr = array();
-
-				for ($i=$candleArrLastIdx; $i>=$candleArrLastIdx-$this->settings[$pairToTrade]['tradeLookbackCandles']; $i--) {
-					$candleSizeArr[] = $candleArr[$pairToTrade]->candles[$i]->highAsk - $candleArr[$pairToTrade]->candles[$i]->lowBid;
-					$candleBodySizeArr[] = abs($candleArr[$pairToTrade]->candles[$i]->closeMid - $candleArr[$pairToTrade]->candles[$i]->openMid);
-
-					if ($candleArr[$pairToTrade]->candles[$i]->lowBid < $min) {
-						$min = $candleArr[$pairToTrade]->candles[$i]->lowBid;
-					}
-
-					if ($candleArr[$pairToTrade]->candles[$i]->highAsk > $max) {
-						$max = $candleArr[$pairToTrade]->candles[$i]->highAsk;
-					}
-				}
-				
-
-				$meanCandleSize = $this->statObj->mean($candleSizeArr);
-				$lastCandleSize = $candle->highAsk - $candle->lowBid;
-				$lastCandleBodySize = abs($candle->closeMid - $candle->openMid);
-				$tradeWindowRange = $max - $min;
-				
-				if ($candle->closeMid > $candle->openMid) {
-					$lastCandleDirection = "up";
-				} else {
-					$lastCandleDirection = "down";
-				}
-
-				$sizePercentile = $this->statObj->percentile($candleBodySizeArr, $lastCandleBodySize);
-				print "sizePercentile=$sizePercentile\n";
-				
-				print "meanCandleSize = $meanCandleSize\n";
-				print "lastCandleSize = $lastCandleSize\n";
-				print "lastCandleBodySize = $lastCandleBodySize\n";
-				print "min = $min\n";
-				print "max = $max\n";
-				print "tradeWindowRange = $tradeWindowRange\n";
 
 
 
@@ -313,13 +246,15 @@ class TeaParty extends Fx {
 
 				print "================================ $pairToTrade New Trades ==================================\n";
 
-				if (count($trades->trades) == 0) {					
+				if (count($trades->trades) == 0) {
+										
 					
-					if ($bias == "down" && $lastCandleDirection == "up" && $sizePercentile > $this->settings[$pairToTrade]['tradePercentileThresholdMin'] && $sizePercentile < $this->settings[$pairToTrade]['tradePercentileThresholdMax']) {
+					if ($bias == "none" && $windowClosingRatio > $this->settings[$pairToTrade]['windowRatioThresholdSell']) {
 
 						// short
-						$TP = $candle->closeAsk - ($lastCandleBodySize * $this->settings[$pairToTrade]['tpMultiplier']);
-						$SL = $candle->closeAsk + ($lastCandleBodySize * $this->settings[$pairToTrade]['slMultiplier']);
+						$range = $max - $min;
+						$TP = $candle->closeAsk - $range * $this->settings[$pairToTrade]['tpMultiplier'];
+						$SL = $candle->closeAsk + $range * $this->settings[$pairToTrade]['slMultiplier'];
 						
 						$calcUnits = $this->calculateUnits($pairToTrade, $this->settings[$pairToTrade]['acceptedLossPerTrade'], $NAV, $quote[$pairToTrade]['ask'], $SL, "buy");
 
@@ -329,11 +264,12 @@ class TeaParty extends Fx {
 						print "MARKET SELL $pairToTrade at ".$candle->closeBid."\n";
 
 
-					} else if ($bias == "up" && $lastCandleDirection == "down" && $sizePercentile > $this->settings[$pairToTrade]['tradePercentileThresholdMin'] && $sizePercentile < $this->settings[$pairToTrade]['tradePercentileThresholdMax']) {
+					} else if ($bias == "none" && $windowClosingRatio < $this->settings[$pairToTrade]['windowRatioThresholdBuy']) {
 
 						// long
-						$TP = $candle->closeBid + ($lastCandleBodySize * $this->settings[$pairToTrade]['tpMultiplier']);
-						$SL = $candle->closeBid - ($lastCandleBodySize * $this->settings[$pairToTrade]['slMultiplier']);
+						$range = $max - $min;
+						$TP = $candle->closeAsk + $range * $this->settings[$pairToTrade]['tpMultiplier'];
+						$SL = $candle->closeAsk - $range * $this->settings[$pairToTrade]['slMultiplier'];
 
 						$calcUnits = $this->calculateUnits($pairToTrade, $this->settings[$pairToTrade]['acceptedLossPerTrade'], $NAV, $quote[$pairToTrade]['bid'], $SL, "sell");
 				

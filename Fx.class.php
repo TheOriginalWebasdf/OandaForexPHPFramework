@@ -378,12 +378,36 @@ class Fx {
 	///////////////////////////////////////////////////
 	public function btRiskResultFileEnd()
 	{
-		$acctResult  = print_r($this->acctObj->getDayPerformance(), true);
+		$acctResult  = "";
+		
+		$acctResult .= "HOUR PERFORMANCE\n";
+		$acctResult .= "================\n";
+		$acctResult .= print_r($this->acctObj->getHourPerformance(), true);
+		
+		$acctResult .= "DAY PERFORMANCE\n";
+		$acctResult .= "================\n";
+		$acctResult .= print_r($this->acctObj->getDayPerformance(), true);
+		
+		$acctResult .= "MONTH PERFORMANCE\n";
+		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->getMonthPerformance(), true);
+		
+		$acctResult .= "YEAR PERFORMANCE\n";
+		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->getYearPerformance(), true);
+		
+		$acctResult .= "PAIR PERFORMANCE\n";
+		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->getPairPerformance(), true);
+		
+		$acctResult .= "ACCOUNT INFO\n";
+		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->accountInfo(), true);
+		
+		$acctResult .= "WRAP-UP VARIABLES\n";
+		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->getWrapupVariables(), true);
+		
 
 		$this->riskResultContent .= "END TIME: ".$this->getTickTime()."\t".date("r", $this->getTickTime())."\n";
 		$this->riskResultContent .= "\nACCOUNT\n";

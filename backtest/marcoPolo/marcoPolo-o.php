@@ -13,7 +13,7 @@ $btLogBasename = substr(basename(__FILE__), 0, -4);
 
 
 $configArr = array(
-	"btStartTickTime" => YEAR_2014,
+	"btStartTickTime" => YEAR_2015,
 	"btEndTickTime" => YEAR_2018,
 
 	"btLeverage" => 30,
@@ -21,7 +21,7 @@ $configArr = array(
 
 	"btAccountId" => "111111",
 	"btAccountName" => "myAccount",
-	"btOpeningBalance" => 70,
+	"btOpeningBalance" => 100,
 	"btLogFile" => __DIR__."/$btLogBasename.log",
 	"btStatsFile" => __DIR__."/$btLogBasename.stats.csv",
 	"btCorrelationFile" => __DIR__."/$btLogBasename.correlation.csv",

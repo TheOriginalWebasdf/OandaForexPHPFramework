@@ -3,7 +3,7 @@ require_once __DIR__."/../../Fx.class.php";
 
 /*
 This method is a day trade strategy for eurusd
-Stars at 7:00am central time with a sample of the last 7 hrs (covering the london session)
+Starts at 7:00am central time with a sample of the last 7 hrs (covering the london session)
 
 - Analyze existing trades
 At 3pm central time close all open trades
@@ -45,7 +45,7 @@ class BigBenH extends Fx {
 		$this->settings = array(
 
 			"USD_CHF" => array(
-				"acceptedLossPerTrade" => .03,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 1.75,
 				"slLevel" => 1.7,
 				"openRatioMin" => .75,
@@ -56,7 +56,7 @@ class BigBenH extends Fx {
 			),
 
 			"GBP_USD" => array(
-				"acceptedLossPerTrade" => .028,
+				"acceptedLossPerTrade" => .02,
 				"tpLevelMax" => 2.2,
 				"slLevel" => 2,
 				"openRatioMin" => .80,
@@ -67,7 +67,7 @@ class BigBenH extends Fx {
 			),
 
 			"USD_CAD" => array(
-				"acceptedLossPerTrade" => .026,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 0.75,
 				"slLevel" => 0.35,
 				"openRatioMin" => .70,
@@ -78,7 +78,7 @@ class BigBenH extends Fx {
 			),
 
 			"USD_JPY" => array(
-				"acceptedLossPerTrade" => .024,
+				"acceptedLossPerTrade" => .02,
 				"tpLevelMax" => 6.00,
 				"slLevel" => 1.00,
 				"openRatioMin" => .70,
@@ -89,7 +89,7 @@ class BigBenH extends Fx {
 			),
 
 			"NZD_USD" => array(
-				"acceptedLossPerTrade" => .022,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 6.00,
 				"slLevel" => 1.25,
 				"openRatioMin" => .80,
@@ -111,7 +111,7 @@ class BigBenH extends Fx {
 			),
 
 			"AUD_USD" => array(
-				"acceptedLossPerTrade" => .02,  // percentage of NAV acceptable loss
+				"acceptedLossPerTrade" => .015,  // percentage of NAV acceptable loss
 				"tpLevelMax" => 9.00,
 				"slLevel" => 3.00,
 				"openRatioMin" => .80,
@@ -120,6 +120,7 @@ class BigBenH extends Fx {
 				"closeHour" => 22,
 				"lookbackCandles" => 6,
 			),
+
 
 		);	// END: settings array
 
@@ -175,11 +176,11 @@ class BigBenH extends Fx {
 		print "NAV=".$acctInfo->NAV."\n";
 
 
-		if ($this->system == "Backtest") {
-			if ($this->monthChange()) {
+//		if ($this->system == "Backtest") {
+//			if ($this->monthChange()) {
 //				$this->deposit(10);
-			}
-		}
+//			}
+//		}
 
 
 
@@ -264,8 +265,21 @@ class BigBenH extends Fx {
 				
 				$loop=$this->settings[$pairToTrade]['lookbackCandles'];
 				
+				print "determine long/short bias\n";
+				print "=========================\n";
+				print "candleArrLastIdx=$candleArrLastIdx\n";
+				print "loop=$loop\n";
+
 				for ($i=$candleArrLastIdx; $i>=$candleArrLastIdx-$this->settings[$pairToTrade]['lookbackCandles']; $i--) {
 					$distance = ($candleArr[$pairToTrade]->candles[$i]->closeBid - $candleArr[$pairToTrade]->candles[$i]->openBid) * $loop;
+
+					print "i=$i\n";
+					print "loop=$loop\n";
+					print "distance=$distance\n";
+					print "current loop candle\n";
+					print_r($candleArr[$pairToTrade]->candles[$i]);
+					print "\n\n";
+					
 					$candleCloseBidArr[] = $candleArr[$pairToTrade]->candles[$i]->closeBid;
 					$candleCloseAskArr[] = $candleArr[$pairToTrade]->candles[$i]->closeAsk;
 					
@@ -274,7 +288,10 @@ class BigBenH extends Fx {
 					$loop--;
 				}
 
+				print "candleCloseBidArr\n";
 				print_r($candleCloseBidArr);
+
+				print "candleCloseAskArr\n";
 				print_r($candleCloseAskArr);
 
 

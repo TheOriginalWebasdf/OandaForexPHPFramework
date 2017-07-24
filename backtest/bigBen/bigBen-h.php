@@ -28,7 +28,7 @@ $btLogBasename = substr(basename(__FILE__), 0, -4);
 
 $configArr = array(
 	//"btStartTickTime" => POST_BREXIT,
-	"btStartTickTime" => YEAR_2016,
+	"btStartTickTime" => YEAR_2014,
 
 	"btEndTickTime" => YEAR_2018,
 

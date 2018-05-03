@@ -396,6 +396,10 @@ class Fx {
 		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->getYearPerformance(), true);
 		
+		$acctResult .= "YEAR PERFORMANCE PERCENT\n";
+		$acctResult .= "========================\n";
+		$acctResult .= print_r($this->acctObj->getYearPerformancePercent(), true);
+		
 		$acctResult .= "PAIR PERFORMANCE\n";
 		$acctResult .= "================\n";
 		$acctResult .= print_r($this->acctObj->getPairPerformance(), true);
@@ -586,6 +590,19 @@ class Fx {
 	{
 		if ($this->system == "Backtest") {
 			return $this->acctObj->monthChange();
+		} else {
+			return false;
+		}
+	}
+
+
+	/////////////////
+	// backtest-determine if year has changed
+	/////////////////
+	public function yearChange()
+	{
+		if ($this->system == "Backtest") {
+			return $this->acctObj->yearChange();
 		} else {
 			return false;
 		}

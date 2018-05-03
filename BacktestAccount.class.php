@@ -401,6 +401,27 @@ class BacktestAccount {
 
 
 	/////////////////
+	// Get year performance percentages
+	/////////////////
+	public function getYearPerformancePercent()
+	{
+		foreach ($this->yearPerformance AS $idx=>$ret) {
+
+			if ($this->yearBeginningBalance[$idx] > 0) {
+				$this->yearPerformancePercent[$idx] = $ret / $this->yearBeginningBalance[$idx];
+			} else {
+				$this->yearPerformancePercent[$idx] = 0;
+			}
+
+		}
+
+		$object = json_decode(json_encode($this->yearPerformancePercent), FALSE);
+		return $object;
+	}
+
+
+
+	/////////////////
 	// calculate Sharpe ratio
 	// http://www.onestepremoved.com/probability-tools/
 	// https://en.wikipedia.org/wiki/Sharpe_ratio
@@ -1030,7 +1051,7 @@ class BacktestAccount {
 				} else {
 					$this->yearPerformance[date("Y", $t['time'])] += $profitUSD;
 				}
-				
+
 				
 				
 				
@@ -1258,6 +1279,11 @@ class BacktestAccount {
 			$this->updateNav();
 			$this->updateStatsFile();
 			$this->updateCorrFile();
+
+			// if year chage, update the year's beginning balance
+			if (!isset($this->previousYear) || $this->yearChange()) {
+				$this->yearBeginningBalance[date("Y", $this->tickTime)] = $this->balance;
+			}
 
 			return true;
 		} else {
@@ -1692,6 +1718,25 @@ class BacktestAccount {
 			return true;
 		} else {
 			$this->previousMonth = date("M", $this->tickTime);
+			return false;
+		}
+	}
+
+
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// determine if the year has changed
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	function yearChange()
+	{
+		if (!isset($this->previousYear)) {
+			$this->previousYear = date("Y", $this->tickTime);
+		}
+
+		if (date("Y", $this->tickTime) != $this->previousYear) {
+			$this->previousYear = date("Y", $this->tickTime);
+			return true;
+		} else {
 			return false;
 		}
 	}
